@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    
+    <!-- ????? -->
+    <resultMap id="BaseResultMap" type="com.example.entity.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    
+    <!-- ????? -->
+    <sql id="Base_Column_List">
+        id, username, email, password, status, create_time, update_time
+    </sql>
+    
+    <!-- ? ID ??? -->
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE id = #{id}
+    </select>
+    
+    <!-- ?????? -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        ORDER BY id DESC
+    </select>
+    
+    <!-- ??????? -->
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE username LIKE CONCAT('%', #{username}, '%')
+        ORDER BY id DESC
+    </select>
+    
+    <!-- ??? -->
+    <insert id="insert" parameterType="com.example.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (
+            username,
+            email,
+            password,
+            status,
+            create_time,
+            update_time
+        ) VALUES (
+            #{username},
+            #{email},
+            #{password},
+            #{status},
+            NOW(),
+            NOW()
+        )
+    </insert>
+    
+    <!-- ??? -->
+    <update id="update" parameterType="com.example.entity.User">
+        UPDATE user
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            update_time = NOW(),
+        </set>
+        WHERE id = #{id}
+    </update>
+    
+    <!-- ? ID ?? -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+    
+</mapper>
