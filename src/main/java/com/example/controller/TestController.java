@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.Result;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +15,12 @@ public class TestController {
     }
 
     @GetMapping("/hello")
-    public String hello() {
-        return "Hello, World!";
+    public Result<String> hello() {
+        return Result.success("Hello, World!");
     }
 
     @GetMapping("/info")
-    public String info() {
-        return "This is a test controller";
+    public Result<String> info() {
+        return Result.success("This is a test controller");
     }
 }
