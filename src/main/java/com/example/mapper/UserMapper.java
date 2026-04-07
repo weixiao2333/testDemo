@@ -28,6 +28,11 @@ public interface UserMapper {
     List<User> selectByUsername(@Param("username") String username);
     
     /**
+     * ??????????
+     */
+    User selectByUsernameExact(@Param("username") String username);
+    
+    /**
      * ???
      */
     int insert(User user);
