@@ -16,6 +16,7 @@ public class RedisConfig {
         template.setConnectionFactory(connectionFactory);
 
         StringRedisSerializer stringSerializer = new StringRedisSerializer();
+        //你的 RedisConfig 配置了 GenericJackson2JsonRedisSerializer，它会将所有值当作 JSON 来反序列化
         GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer();
 
         template.setKeySerializer(stringSerializer);
