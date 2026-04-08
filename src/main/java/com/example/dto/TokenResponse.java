@@ -7,11 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Schema(description = "登录响应")
-public class LoginResponse {
+@Schema(description = "Token响应")
+public class TokenResponse {
     
     @Schema(description = "访问Token", example = "eyJhbGciOiJIUzI1NiJ9...")
     private String accessToken;
@@ -19,9 +19,9 @@ public class LoginResponse {
     @Schema(description = "刷新Token", example = "eyJhbGciOiJIUzI1NiJ9...")
     private String refreshToken;
     
-    @Schema(description = "Token 类型", example = "Bearer")
-    private String tokenType = "Bearer";
+    @Schema(description = "Token类型", example = "Bearer")
+    private String tokenType;
     
-    @Schema(description = "过期时间（秒）", example = "900")
+    @Schema(description = "过期时间(秒)", example = "900")
     private Long expiresIn;
 }
