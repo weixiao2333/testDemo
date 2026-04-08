@@ -44,6 +44,15 @@
         ORDER BY id DESC
     </select>
     
+    <!-- ?????????? -->
+    <select id="selectByUsernameExact" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM user
+        WHERE username = #{username}
+        LIMIT 1
+    </select>
+
     <!-- ??? -->
     <insert id="insert" parameterType="com.example.entity.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (
