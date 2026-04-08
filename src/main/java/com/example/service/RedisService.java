@@ -1,42 +1,20 @@
 package com.example.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-
 import java.util.concurrent.TimeUnit;
 
-@Service
-public class RedisService {
+public interface RedisService {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    void set(String key, Object value);
 
-    public void set(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
-    }
+    void set(String key, Object value, long timeout, TimeUnit unit);
 
-    public void set(String key, Object value, long timeout, TimeUnit unit) {
-        redisTemplate.opsForValue().set(key, value, timeout, unit);
-    }
+    Object get(String key);
 
-    public Object get(String key) {
-        return redisTemplate.opsForValue().get(key);
-    }
+    Boolean delete(String key);
 
-    public Boolean delete(String key) {
-        return redisTemplate.delete(key);
-    }
+    Boolean hasKey(String key);
 
-    public Boolean hasKey(String key) {
-        return redisTemplate.hasKey(key);
-    }
+    void expire(String key, long timeout, TimeUnit unit);
 
-    public void expire(String key, long timeout, TimeUnit unit) {
-        redisTemplate.expire(key, timeout, unit);
-    }
-
-    public Long getExpire(String key) {
-        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
-    }
+    Long getExpire(String key);
 }
